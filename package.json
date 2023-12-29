@@ -1,0 +1,21 @@
+{
+  "name": "com.postegames.coroutinehelpers",
+  "version": "1.0.0",
+  "displayName": "PEG - Coroutine Helpers",
+  "description": "Simple helper classes for coroutines and coroutine timing.",
+  "unity": "2022.2",
+  "keywords": [
+    "peg",
+    "postegames",
+    "coroutine",
+    "systems"
+  ],
+  "author": {
+    "name": "Sluggy",
+    "email": "jcsluggy@gmail.com",
+    "url": "http:/postegames.com"
+  },
+  "dependencies": {
+    "com.postegames.autocreatable": ""
+  }
+}
