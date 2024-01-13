@@ -13,7 +13,9 @@ namespace Peg.Systems
     {
         public static GlobalCoroutine Instance;
 
+#pragma warning disable CS0618 // Type or member is obsolete
         GlobalCoroutineOwnerBehaviour Owner;
+#pragma warning restore CS0618 // Type or member is obsolete
 
         void AutoAwake()
         {
@@ -21,16 +23,29 @@ namespace Peg.Systems
             var go = GameObject.Find("Global Coroutine Holder");
             if (go == null)
 				go = new GameObject("Global Coroutine Holder");
-            go.hideFlags = HideFlags.HideAndDontSave;
-            GameObject.DontDestroyOnLoad(go);
+#if UNITY_EDITOR
+            if (Application.isPlaying)
+            {
+                go.hideFlags = HideFlags.HideAndDontSave;
+                GameObject.DontDestroyOnLoad(go);
+            }
+#endif
+#pragma warning disable CS0618 // Type or member is obsolete
             Owner = go.AddComponent<GlobalCoroutineOwnerBehaviour>();
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
         void AutoDestroy()
         {
             if (Owner != null && Owner.gameObject is not null)
             {
+#if UNITY_EDITOR
+                if(Application.isPlaying)
+                    GameObject.Destroy(Owner.gameObject);
+                else GameObject.DestroyImmediate(Owner.gameObject);
+#else
                 GameObject.Destroy(Owner.gameObject);
+#endif
                 Owner = null;
             }
         }
